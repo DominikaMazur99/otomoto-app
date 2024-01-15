@@ -21,7 +21,7 @@ def scrape_otomoto_html(url):
             data = json.loads(json_data)
 
             # Now 'data' contains the structured information
-            # Example: extracting car details and saving to the Car model
+            # Extracting car details and saving to the Car model
             for offer in data['mainEntity']['itemListElement']:
                 car_name = offer['itemOffered'].get('name', None)
                 brand = offer['itemOffered'].get('brand', None)
@@ -32,13 +32,20 @@ def scrape_otomoto_html(url):
                 price_specification = offer.get('priceSpecification', {})
                 price = price_specification.get('price', None)
 
+                # Extract the 'modelDate' value
+                model_date = offer['itemOffered'].get('modelDate', None)
+
+                # Check if 'modelDate' is a number before assigning to 'year'
+                year = int(model_date) if model_date and model_date.isdigit() else None
+
                 # Save the extracted data to your Car model
                 Car.objects.create(
                     car_name=car_name,
                     brand=brand,
                     fuel_type=fuel_type,
                     mileage=mileage,
-                    price=price
+                    price=price,
+                    year=year  # Assuming 'year' is a field in your Car model
                 )
 
                 print(f"Saved {car_name} to the Car model.")

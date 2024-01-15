@@ -52,8 +52,8 @@ class MileageRangeFilter(admin.SimpleListFilter):
         return queryset
 
 class CarAdmin(admin.ModelAdmin):
-    list_display = ('car_name', 'brand', 'fuel_type', 'mileage', 'price')
-    list_filter = (PriceRangeFilter, MileageRangeFilter, 'fuel_type', 'brand')  #filters in panel on right
+    list_display = ('car_name', 'brand', 'fuel_type', 'mileage', 'price', 'year')
+    list_filter = (PriceRangeFilter, MileageRangeFilter, 'fuel_type', 'brand', 'year')  #filters in panel on right
     search_fields = ('car_name', 'brand')
 
 admin.site.register(Car, CarAdmin)

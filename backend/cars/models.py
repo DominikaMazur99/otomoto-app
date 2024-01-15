@@ -6,6 +6,7 @@ class Car(models.Model):
     fuel_type = models.CharField(max_length=50)
     mileage = models.IntegerField()  # Assuming it's an integer field
     price = models.IntegerField(null=True,blank=True)
+    year = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
         return self.car_name
