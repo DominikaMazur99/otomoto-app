@@ -30,7 +30,6 @@ services:
       - db
       - migrate
 
-
   db:
     image: postgres:16.0-alpine
     environment:

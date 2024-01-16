@@ -1,7 +1,12 @@
 from django.contrib import admin
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.utils.translation import gettext_lazy as _
+from rest_framework.pagination import PageNumberPagination
 
 from .models import Car
+
+class CustomAdminPageNumberPagination(PageNumberPagination):
+    page_size = 50
 
 class PriceRangeFilter(admin.SimpleListFilter):
     title = _('Price Range')
@@ -53,7 +58,30 @@ class MileageRangeFilter(admin.SimpleListFilter):
 
 class CarAdmin(admin.ModelAdmin):
     list_display = ('car_name', 'brand', 'fuel_type', 'mileage', 'price', 'year')
-    list_filter = (PriceRangeFilter, MileageRangeFilter, 'fuel_type', 'brand', 'year')  #filters in panel on right
+    list_filter = (PriceRangeFilter, MileageRangeFilter, 'fuel_type', 'brand', 'year')  # filters in panel on the right
     search_fields = ('car_name', 'brand')
+    pagination_class = CustomAdminPageNumberPagination
+
+    def changelist_view(self, request, extra_context=None):
+        # Update the 'page' parameter in the URL based on the current page number
+        if 'page' in request.GET:
+            page_number = request.GET['page']
+        else:
+            page_number = 1
+
+        paginator = Paginator(self.get_queryset(request), self.list_per_page)
+
+        try:
+            # Get the requested page
+            page = paginator.page(page_number)
+        except (EmptyPage, PageNotAnInteger):
+            # Return the first page if the requested page is invalid
+            page = paginator.page(1)
+
+        # Set the 'page' parameter in the URL
+        request.GET = request.GET.copy()
+        request.GET['page'] = page.number
+
+        return super().changelist_view(request, extra_context=extra_context)
 
 admin.site.register(Car, CarAdmin)
