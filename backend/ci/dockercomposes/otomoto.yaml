@@ -22,8 +22,8 @@ services:
     build:
       context: ../..
       dockerfile: ci/dockerfiles/otomoto.Dockerfile
-    entrypoint: ["./manage.py", "createsuperuser", "--username=domi",
-                 "--email=domi@domi.pl", "--noinput"]
+    entrypoint: ["./manage.py", "createsuperuser", "--username=tester",
+                 "--email=tester@tester.pl", "--noinput"]
     environment:
         DJANGO_SUPERUSER_PASSWORD: "test"
     depends_on:

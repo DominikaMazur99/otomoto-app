@@ -76,8 +76,12 @@ WSGI_APPLICATION = 'otomoto.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'db',  # This should match the service name in your Docker Compose file
+        'PORT': '5432',  # PostgreSQL default port
     }
 }
 
