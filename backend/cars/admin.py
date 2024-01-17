@@ -6,7 +6,7 @@ from rest_framework.pagination import PageNumberPagination
 from .models import Car
 
 class CustomAdminPageNumberPagination(PageNumberPagination):
-    page_size = 50
+    page_size = 100
 
 class PriceRangeFilter(admin.SimpleListFilter):
     title = _('Price Range')
@@ -58,7 +58,7 @@ class MileageRangeFilter(admin.SimpleListFilter):
 
 class CarAdmin(admin.ModelAdmin):
     list_display = ('car_name', 'brand', 'fuel_type', 'mileage', 'price', 'year')
-    list_filter = (PriceRangeFilter, MileageRangeFilter, 'fuel_type', 'brand', 'year')  # filters in panel on the right
+    # list_filter = (PriceRangeFilter, MileageRangeFilter, 'fuel_type', 'brand', 'year')  # filters in panel on the right
     search_fields = ('car_name', 'brand')
     pagination_class = CustomAdminPageNumberPagination
 
