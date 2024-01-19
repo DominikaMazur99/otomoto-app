@@ -39,14 +39,14 @@ def scrape_otomoto_html(url):
                 year = int(model_date) if model_date and model_date.isdigit() else None
 
                 # Save the extracted data to your Car model
-                # Car.objects.create(
-                #     car_name=car_name,
-                #     brand=brand,
-                #     fuel_type=fuel_type,
-                #     mileage=mileage,
-                #     price=price,
-                #     year=year  # Assuming 'year' is a field in your Car model
-                # )
+                Car.objects.create(
+                    car_name=car_name,
+                    brand=brand,
+                    fuel_type=fuel_type,
+                    mileage=mileage,
+                    price=price,
+                    year=year  # Assuming 'year' is a field in your Car model
+                )
 
                 print(f"Saved {car_name} to the Car model.")
 

@@ -2,6 +2,7 @@ FROM python:3.12-slim
 
 WORKDIR /app
 
+
 # Install build dependencies for psycopg2
 RUN apt-get update && apt-get install -y libpq-dev gcc
 
