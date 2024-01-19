@@ -29,6 +29,14 @@ services:
     depends_on:
       - db
       - migrate
+  load_data:
+    build:
+      context: ../..
+      dockerfile: ci/dockerfiles/otomoto.Dockerfile
+    entrypoint: [ "./manage.py", "load_cars_data" ]
+    depends_on:
+      - db
+      - migrate
 
   db:
     image: postgres:latest
